@@ -128,34 +128,22 @@ Windows: пакетные менеджеры не поддерживаются, 
 - агент ссылается на навык, которого нет в репозитории;
 - внутри репозитория осталась ссылка на старое имя навыка без префикса.
 
-## Зачем MCP настраивается отдельно
+## Дополнительно: MCP context7
 
-Зачем: каждый MCP-сервер тратит контекст на описания инструментов, а полезные зависят от проекта
-и его секретов. Глобальный конфиг должен оставаться переносимым, поэтому установщик
-`opencode.json(c)` не трогает, а вы добавляете только нужное.
-
-| Сервер | Уровень | Доступ | Зачем |
-| --- | --- | --- | --- |
-| context7 | глобально | без авторизации | актуальная документация Go- и Python-библиотек |
-| sentry | проект | OAuth через `/mcps` | ошибки одного проекта |
-| github | проект | PAT в `{env:GITHUB_TOKEN}` | issues и PR одного репозитория |
-| postgres | проект | `{env:DATABASE_URL}` | реальная схема одной базы |
+Зачем: актуальная документация Go- и Python-библиотек вместо догадок из обучающих данных.
 
 ```sh
 opencode mcp add context7 --global --url https://mcp.context7.com/mcp
-
-cd <project>
-opencode mcp add sentry --url https://mcp.sentry.dev/mcp
-opencode mcp add github --url https://api.githubcopilot.com/mcp/ \
-  --header 'Authorization=Bearer {env:GITHUB_TOKEN}'
-opencode mcp add postgres --env DATABASE_URL='{env:DATABASE_URL}' \
-  -- npx -y <postgres-mcp-server>
 ```
 
-- Секреты не в конфиге: `{env:...}` или `{file:~/.secrets/...}`.
-- `@modelcontextprotocol/server-postgres` заархивирован — берите поддерживаемый сервер.
-- `opencode mcp list` показывает статус, `/mcps` подключает и логинит. Команды удаления нет:
-  уберите запись из `mcp.servers` в `opencode.json(c)`.
+Если нужен больший лимит, ключ передаётся через переменную окружения:
+
+```sh
+opencode mcp add context7 --global --url https://mcp.context7.com/mcp \
+  --header 'CONTEXT7_API_KEY={env:CONTEXT7_API_KEY}'
+```
+
+Установщик MCP не трогает. Удалить сервер — убрать запись из `mcp.servers`.
 
 ## Зачем переводить правила
 

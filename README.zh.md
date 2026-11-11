@@ -127,33 +127,22 @@ Windows：不支持包管理器，请下载
 - agent 引用了仓库中不存在的 skill；
 - 仓库内仍存在不带前缀的旧 skill 名称引用。
 
-## 为什么 MCP 单独配置
+## 可选：context7 MCP
 
-原因：每个 MCP 服务器都会用工具描述占用上下文，而有用的服务器依赖项目和它的密钥。
-全局配置必须保持可移植，因此安装脚本不动 `opencode.json(c)`，只添加真正需要的东西。
-
-| 服务器 | 层级 | 访问方式 | 用途 |
-| --- | --- | --- | --- |
-| context7 | 全局 | 无需授权 | Go 与 Python 库的最新文档 |
-| sentry | 项目 | 通过 `/mcps` 的 OAuth | 单个项目的错误 |
-| github | 项目 | `{env:GITHUB_TOKEN}` 中的 PAT | 单个仓库的 issues 与 PR |
-| postgres | 项目 | `{env:DATABASE_URL}` | 单个数据库的真实结构 |
+原因：获取 Go 与 Python 库的最新文档，而不是依赖训练数据中的猜测。
 
 ```sh
 opencode mcp add context7 --global --url https://mcp.context7.com/mcp
-
-cd <project>
-opencode mcp add sentry --url https://mcp.sentry.dev/mcp
-opencode mcp add github --url https://api.githubcopilot.com/mcp/ \
-  --header 'Authorization=Bearer {env:GITHUB_TOKEN}'
-opencode mcp add postgres --env DATABASE_URL='{env:DATABASE_URL}' \
-  -- npx -y <postgres-mcp-server>
 ```
 
-- 密钥不写入配置：用 `{env:...}` 或 `{file:~/.secrets/...}`。
-- `@modelcontextprotocol/server-postgres` 已归档，请选择仍在维护的服务器。
-- `opencode mcp list` 查看状态，`/mcps` 连接和登录。没有删除命令：
-  从 `opencode.json(c)` 的 `mcp.servers` 中手动删除。
+需要更高额度时，通过环境变量传入密钥：
+
+```sh
+opencode mcp add context7 --global --url https://mcp.context7.com/mcp \
+  --header 'CONTEXT7_API_KEY={env:CONTEXT7_API_KEY}'
+```
+
+安装脚本不修改 MCP。删除服务器时，从 `mcp.servers` 中移除对应条目。
 
 ## 为什么要翻译规则
 

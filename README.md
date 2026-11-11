@@ -128,34 +128,22 @@ The script stops when:
 - an agent references a skill that is absent from the repository;
 - an unprefixed skill ID is still referenced inside the repository.
 
-## Why MCP is configured separately
+## Optional: context7 MCP
 
-Why: every MCP server spends context on tool descriptions, and the useful ones depend on a
-project and its secrets. The global config must stay portable, so the installer leaves
-`opencode.json(c)` alone and you add only what you need.
-
-| Server | Level | Access | Why |
-| --- | --- | --- | --- |
-| context7 | global | none | current docs for Go and Python libraries |
-| sentry | project | OAuth via `/mcps` | issues of one project |
-| github | project | PAT in `{env:GITHUB_TOKEN}` | issues and PRs of one repository |
-| postgres | project | `{env:DATABASE_URL}` | real schema of one database |
+Why: fresh documentation for Go and Python libraries instead of guesses from training data.
 
 ```sh
 opencode mcp add context7 --global --url https://mcp.context7.com/mcp
-
-cd <project>
-opencode mcp add sentry --url https://mcp.sentry.dev/mcp
-opencode mcp add github --url https://api.githubcopilot.com/mcp/ \
-  --header 'Authorization=Bearer {env:GITHUB_TOKEN}'
-opencode mcp add postgres --env DATABASE_URL='{env:DATABASE_URL}' \
-  -- npx -y <postgres-mcp-server>
 ```
 
-- Secrets stay out of the config: `{env:...}` or `{file:~/.secrets/...}`.
-- `@modelcontextprotocol/server-postgres` is archived — pick a maintained server.
-- `opencode mcp list` shows status, `/mcps` connects and signs in. There is no remove command:
-  delete the entry from `mcp.servers` in `opencode.json(c)`.
+For a higher rate limit, pass the key through an environment variable:
+
+```sh
+opencode mcp add context7 --global --url https://mcp.context7.com/mcp \
+  --header 'CONTEXT7_API_KEY={env:CONTEXT7_API_KEY}'
+```
+
+The installer does not touch MCP. To remove the server, delete its entry from `mcp.servers`.
 
 ## Why translate the rules
 

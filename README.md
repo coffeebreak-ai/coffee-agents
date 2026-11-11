@@ -135,14 +135,6 @@ git pull
 ./install.sh
 ```
 
-## Add a skill
-
-1. Directory `opencode/skills/coffee-<id>/SKILL.md`.
-2. `name: Coffee <Name>` in the frontmatter.
-3. Reinstall: `./install.sh`.
-
-References inside files must point only to `coffee-<id>`.
-
 ## Switch to another language
 
 The rules, prompts and skill texts are written in Russian, so the model answers in Russian and

@@ -134,14 +134,6 @@ git pull
 ./install.sh
 ```
 
-## 添加 skill
-
-1. 新建目录 `opencode/skills/coffee-<id>/SKILL.md`。
-2. frontmatter 写 `name: Coffee <名称>`。
-3. 重新安装：`./install.sh`。
-
-文件内的引用只能指向 `coffee-<id>`。
-
 ## 切换到其他语言
 
 规则、prompt 和 skill 文本都是俄语，模型会按指令语言回答。若团队使用其他语言，这会浪费

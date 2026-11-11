@@ -2,32 +2,42 @@
 
 **English** | [Русский](README.ru.md) | [中文](README.zh.md)
 
-Global OpenCode settings: agents, skills and rules with the `coffee-` prefix.
-Copied into the user config by a single script. Project-level `.opencode/` folders are not included.
+Global OpenCode settings: three agents, ten skills and a rules block with the `coffee-` prefix.
+Installed by copying into the user config; project-level `.opencode/` is not included.
 
-## Install OpenCode first
+## Install coffee-agents
 
-macOS / Linux:
-
-```sh
-curl -fsSL https://opencode.ai/v2/install | bash
-# or
-brew install anomalyco/tap/opencode-v2
-```
-
-npm / bun / pnpm:
+macOS, Linux, WSL, Git Bash:
 
 ```sh
-npm install -g @opencode/cli
+git clone https://github.com/coffeebreak-ai/coffee-agents.git
+cd coffee-agents
+./install.sh
 ```
 
-Windows: package managers are not supported, download the
-[standalone binary](https://opencode.ai/update/api/latest/cli/opencode/opencode-windows-x64.zip),
-unpack it and add the folder to `PATH`.
+Windows PowerShell:
 
-Then start `opencode` and connect a model with `/connect`.
+```powershell
+git clone https://github.com/coffeebreak-ai/coffee-agents.git
+cd coffee-agents
+./install.ps1
+```
 
-## What is inside
+OpenCode must be installed first — see [Requirements](#requirements).
+
+Default target is `~/.config/opencode` (`%USERPROFILE%\.config\opencode` on Windows).
+Override with `OPENCODE_CONFIG_DIR=/path` or `$env:OPENCODE_CONFIG_DIR`.
+
+| `install.sh` | `install.ps1` | Action |
+| --- | --- | --- |
+| `--dry-run` | `-DryRun` | print the plan, write nothing |
+| `--force` | `-Force` | no confirmation |
+| `--uninstall` | `-Uninstall` | remove `coffee-*`, restore the last backup |
+
+## Why install it
+
+A bare OpenCode starts every session from zero: it does not know your stack, how you write specs,
+or what you check before merging. This repo packages that once and reuses it in every project.
 
 ```text
 opencode/
@@ -51,7 +61,7 @@ opencode/
 
 | Component | Purpose |
 | --- | --- |
-| `coffee-architect` | planning, interview, contracts, failure matrix, spec |
+| `coffee-architect` | planning, interview, contracts, failure matrix, spec with Mermaid diagrams |
 | `coffee-developer` | implementation from a spec, Go and Python |
 | `coffee-qa` | independent black-box review |
 | `coffee-golang-dev` | Go style, errors, linter |
@@ -65,42 +75,36 @@ opencode/
 | `coffee-python-dev` | Python standards |
 | `coffee-qa-blackbox` | review protocol without reading implementation |
 
-## Install coffee-agents
+## Requirements
 
-macOS, Linux, WSL, Git Bash:
+Why: agents, skills and rules are plain files that OpenCode reads from its config directory.
+The installer only copies them, so OpenCode itself has to be present.
 
 ```sh
-git clone https://github.com/coffeebreak-ai/coffee-agents.git
-cd coffee-agents
-./install.sh
+curl -fsSL https://opencode.ai/v2/install | bash
+# or
+brew install anomalyco/tap/opencode-v2
+# or
+npm install -g @opencode/cli
 ```
 
-Windows PowerShell:
+Windows: package managers are not supported, download the
+[standalone binary](https://opencode.ai/update/api/latest/cli/opencode/opencode-windows-x64.zip),
+unpack it and add the folder to `PATH`.
 
-```powershell
-git clone https://github.com/coffeebreak-ai/coffee-agents.git
-cd coffee-agents
-./install.ps1
-```
+Then start `opencode` and connect a model with `/connect`.
 
-Default target is `~/.config/opencode` (`%USERPROFILE%\.config\opencode` on Windows).
-Override with `OPENCODE_CONFIG_DIR=/path` or `$env:OPENCODE_CONFIG_DIR`.
+## Why existing settings survive
 
-## Flags
+Why: most machines already have their own agents, skills and `AGENTS.md`. An install that
+overwrites them would silently change behavior in every project.
 
-| `install.sh` | `install.ps1` | Action |
-| --- | --- | --- |
-| `--dry-run` | `-DryRun` | print the plan, write nothing |
-| `--force` | `-Force` | no confirmation |
-| `--uninstall` | `-Uninstall` | remove `coffee-*`, restore the last backup |
+How:
 
-## How it coexists with existing settings
-
-- Only files with the `coffee-` prefix are copied: `agents/coffee-*.md` and `skills/coffee-*`.
-- Agents and skills are addressed by ID, and the ID comes from the file or directory name.
-  `golang-dev` and `coffee-golang-dev` are different IDs and do not overwrite each other.
-- Files without the prefix are never read or modified by the installer.
-- The only exception is `AGENTS.md`: OpenCode has exactly one. Our rules live between markers:
+- only files with the `coffee-` prefix are copied: `agents/coffee-*.md` and `skills/coffee-*`;
+- IDs come from file and directory names, so `golang-dev` and `coffee-golang-dev` coexist;
+- files without the prefix are never read or modified;
+- `AGENTS.md` is the only shared file. Our rules live between markers:
 
   ```markdown
   <!-- coffee:begin -->
@@ -109,108 +113,57 @@ Override with `OPENCODE_CONFIG_DIR=/path` or `$env:OPENCODE_CONFIG_DIR`.
   <!-- coffee:end -->
   ```
 
-  Reinstalling replaces only that block. If the file is missing, it is created. If it already
-  holds foreign rules, our block is appended at the end.
-- Before writing, touched files are copied to `~/.config/opencode/.coffee-backup/<date>/`.
+  Reinstalling replaces only that block. A missing file is created; foreign rules are kept and
+  our block is appended.
+- before writing, touched files are copied to `~/.config/opencode/.coffee-backup/<date>/`.
 
-## Install-time checks
+## Why the installer checks before writing
 
-The script fails when:
+Why: a missing `SKILL.md` or a reference to a renamed skill fails when an agent is invoked,
+not when it is installed. Failing early is cheaper than debugging an agent that cannot load a skill.
+
+The script stops when:
 
 - a skill has no `SKILL.md`;
 - an agent references a skill that is absent from the repository;
 - an unprefixed skill ID is still referenced inside the repository.
 
-## Not installed
+## Why MCP is configured separately
 
-- `service.json` — a secret, OpenCode creates its own.
-- `opencode.json`, `cli.json` — theme and client settings are not included.
-- `~/.local/share/opencode` — database, logs, snapshots.
-- Project `.opencode/` folders and repository `AGENTS.md`.
+Why: every MCP server spends context on tool descriptions, and the useful ones depend on a
+project and its secrets. The global config must stay portable, so the installer leaves
+`opencode.json(c)` alone and you add only what you need.
 
-## Recommended MCP servers (optional)
-
-The installer does not configure MCP: `opencode.json(c)` is shared, and the servers below
-either need secrets or belong to a project. Add them manually.
-
-| Server | Level | Access |
-| --- | --- | --- |
-| context7 | global | no authorization |
-| sentry | project | OAuth via `/mcps` |
-| github | project | PAT in `{env:GITHUB_TOKEN}` |
-| postgres | project | `{env:DATABASE_URL}` |
-
-Why not global: postgres, github and sentry depend on the repository and its secrets.
-The global config must work on any machine without extra variables.
-
-### context7 — library documentation
-
-Global:
+| Server | Level | Access | Why |
+| --- | --- | --- | --- |
+| context7 | global | none | current docs for Go and Python libraries |
+| sentry | project | OAuth via `/mcps` | issues of one project |
+| github | project | PAT in `{env:GITHUB_TOKEN}` | issues and PRs of one repository |
+| postgres | project | `{env:DATABASE_URL}` | real schema of one database |
 
 ```sh
 opencode mcp add context7 --global --url https://mcp.context7.com/mcp
-```
 
-Personal key (for a higher limit) — keep it out of the config:
-
-```sh
-opencode mcp add context7 --global --url https://mcp.context7.com/mcp \
-  --header 'CONTEXT7_API_KEY={env:CONTEXT7_API_KEY}'
-```
-
-### sentry — project errors
-
-From the project root, without `--global`:
-
-```sh
+cd <project>
 opencode mcp add sentry --url https://mcp.sentry.dev/mcp
-```
-
-Then `/mcps` → `sentry` → sign in in the browser. Tokens are stored outside the config.
-
-### github — issues and PRs
-
-```sh
 opencode mcp add github --url https://api.githubcopilot.com/mcp/ \
   --header 'Authorization=Bearer {env:GITHUB_TOKEN}'
-```
-
-Keep `GITHUB_TOKEN` in `~/.zshrc`, `.envrc` or `{file:~/.secrets/github}`.
-Check the current endpoint in the GitHub MCP documentation.
-
-### postgres — database schema
-
-```sh
 opencode mcp add postgres --env DATABASE_URL='{env:DATABASE_URL}' \
   -- npx -y <postgres-mcp-server>
 ```
 
-The reference `@modelcontextprotocol/server-postgres` is archived and unmaintained —
-pick a maintained server. Never put the connection string in the config, only `{env:...}`.
+- Secrets stay out of the config: `{env:...}` or `{file:~/.secrets/...}`.
+- `@modelcontextprotocol/server-postgres` is archived — pick a maintained server.
+- `opencode mcp list` shows status, `/mcps` connects and signs in. There is no remove command:
+  delete the entry from `mcp.servers` in `opencode.json(c)`.
 
-### Check and remove
+## Why translate the rules
 
-```sh
-opencode mcp list        # connected / needs authentication
-```
+Why: the rules, prompts and skill texts are written in Russian, and the model mirrors the
+language of its instructions. For a team working in another language that costs extra context
+and drifts from the terms used in tickets and code review.
 
-`/mcps` — connect, disconnect, sign in. `opencode mcp logout <name>` — switch accounts.
-There is no remove command: delete the entry from `mcp.servers` in `opencode.json(c)`.
-
-## Update
-
-```sh
-git pull
-./install.sh
-```
-
-## Switch to another language
-
-The rules, prompts and skill texts are written in Russian, so the model answers in Russian and
-follows Russian wording. If your team works in another language, that costs extra context and
-drifts from the terms you use in tickets and code review.
-
-Two options:
+How:
 
 1. **Only responses.** Change one line in `opencode/coffee-AGENTS.md`:
 
@@ -218,9 +171,9 @@ Two options:
    - **Language:** always answer in English.
    ```
 
-   Reinstall. Rules stay as they are, output language changes.
+   Reinstall. The rules stay, the output language changes.
 
-2. **Full translation.** Install first, then ask an agent:
+2. **Full translation.** Ask an agent:
 
    ```text
    Translate opencode/ into English. Keep file names, IDs, frontmatter keys, code blocks,
@@ -232,8 +185,26 @@ Two options:
 
 After a full translation:
 
-- keep every `coffee-` ID as is, otherwise agents will point at missing skills;
+- keep every `coffee-` ID, otherwise agents point at missing skills;
 - keep the `<!-- coffee:begin -->` and `<!-- coffee:end -->` markers, otherwise the installer
   appends a second block;
-- keep code, commands, paths and technical identifiers untouched;
-- check the result with `./install.sh --dry-run`: it validates skills and references.
+- do not translate code, commands, paths and technical identifiers;
+- check the result with `./install.sh --dry-run`.
+
+## Update
+
+Why: reinstalling is idempotent, so the same command updates agents, skills and the rules block.
+
+```sh
+git pull
+./install.sh
+```
+
+## What is not installed
+
+Why: secrets and machine data must stay local, and project configs belong to their repositories.
+
+- `service.json` — a secret, OpenCode creates its own.
+- `opencode.json`, `cli.json` — MCP and client settings are yours.
+- `~/.local/share/opencode` — database, logs, snapshots.
+- Project `.opencode/` folders and repository `AGENTS.md`.

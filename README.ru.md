@@ -88,9 +88,8 @@ brew install anomalyco/tap/opencode-v2
 npm install -g @opencode/cli
 ```
 
-Windows: пакетные менеджеры не поддерживаются, скачайте
-[готовый бинарник](https://opencode.ai/update/api/latest/cli/opencode/opencode-windows-x64.zip),
-распакуйте и добавьте каталог в `PATH`.
+Windows: пакетные менеджеры не поддерживаются — скачайте бинарник по
+[инструкции по установке](https://opencode.ai/v2/docs/#cli), распакуйте и добавьте каталог в `PATH`.
 
 Затем запустите `opencode` и подключите модель командой `/connect`.
 

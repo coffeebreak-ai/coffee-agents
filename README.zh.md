@@ -88,9 +88,7 @@ brew install anomalyco/tap/opencode-v2
 npm install -g @opencode/cli
 ```
 
-Windows：不支持包管理器，请下载
-[独立二进制文件](https://opencode.ai/update/api/latest/cli/opencode/opencode-windows-x64.zip)，
-解压后把目录加入 `PATH`。
+Windows：不支持包管理器 — 按[安装说明](https://opencode.ai/v2/docs/#cli)下载独立二进制文件，解压后把目录加入 `PATH`。
 
 启动 `opencode`，用 `/connect` 连接模型。
 

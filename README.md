@@ -88,8 +88,8 @@ brew install anomalyco/tap/opencode-v2
 npm install -g @opencode/cli
 ```
 
-Windows: package managers are not supported, download the
-[standalone binary](https://opencode.ai/update/api/latest/cli/opencode/opencode-windows-x64.zip),
+Windows: package managers are not supported — see the
+[installation guide](https://opencode.ai/v2/docs/#cli), download the binary for your platform,
 unpack it and add the folder to `PATH`.
 
 Then start `opencode` and connect a model with `/connect`.

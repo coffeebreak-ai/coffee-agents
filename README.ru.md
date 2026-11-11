@@ -128,6 +128,75 @@ cd coffee-agents
 - `~/.local/share/opencode` — база, логи, снапшоты.
 - Проектные `.opencode/` и `AGENTS.md` репозиториев.
 
+## Рекомендуемые MCP-серверы (необязательно)
+
+Установщик MCP не настраивает: конфиг `opencode.json(c)` общий, а серверы ниже либо
+требуют секретов, либо привязаны к проекту. Добавляются вручную.
+
+| Сервер | Уровень | Доступ |
+| --- | --- | --- |
+| context7 | глобально | без авторизации |
+| sentry | проект | OAuth через `/mcps` |
+| github | проект | PAT в `{env:GITHUB_TOKEN}` |
+| postgres | проект | `{env:DATABASE_URL}` |
+
+Почему не глобально: postgres, github и sentry зависят от репозитория и его секретов.
+Глобальный конфиг должен работать на любой машине без дополнительных переменных.
+
+### context7 — документация библиотек
+
+Глобально:
+
+```sh
+opencode mcp add context7 --global --url https://mcp.context7.com/mcp
+```
+
+Личный ключ (если нужен больший лимит) — только вне конфига:
+
+```sh
+opencode mcp add context7 --global --url https://mcp.context7.com/mcp \
+  --header 'CONTEXT7_API_KEY={env:CONTEXT7_API_KEY}'
+```
+
+### sentry — ошибки проекта
+
+Из корня проекта, без `--global`:
+
+```sh
+opencode mcp add sentry --url https://mcp.sentry.dev/mcp
+```
+
+Затем `/mcps` → `sentry` → войти в браузере. Токены хранятся вне конфига.
+
+### github — issues и PR
+
+```sh
+opencode mcp add github --url https://api.githubcopilot.com/mcp/ \
+  --header 'Authorization=Bearer {env:GITHUB_TOKEN}'
+```
+
+`GITHUB_TOKEN` держите в `~/.zshrc`, `.envrc` или `{file:~/.secrets/github}`.
+Актуальный endpoint сверяйте с документацией GitHub MCP.
+
+### postgres — схема БД
+
+```sh
+opencode mcp add postgres --env DATABASE_URL='{env:DATABASE_URL}' \
+  -- npx -y <postgres-mcp-server>
+```
+
+Референсный `@modelcontextprotocol/server-postgres` заархивирован и не поддерживается —
+выберите поддерживаемый сервер. Строку подключения в конфиг не пишите, только `{env:...}`.
+
+### Проверка и удаление
+
+```sh
+opencode mcp list        # connected / needs authentication
+```
+
+`/mcps` — подключить, отключить, войти. `opencode mcp logout <name>` — сменить аккаунт.
+Команды удаления нет: уберите запись из `mcp.servers` в `opencode.json(c)`.
+
 ## Обновление
 
 ```sh

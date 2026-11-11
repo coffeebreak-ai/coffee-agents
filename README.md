@@ -128,6 +128,75 @@ The script fails when:
 - `~/.local/share/opencode` — database, logs, snapshots.
 - Project `.opencode/` folders and repository `AGENTS.md`.
 
+## Recommended MCP servers (optional)
+
+The installer does not configure MCP: `opencode.json(c)` is shared, and the servers below
+either need secrets or belong to a project. Add them manually.
+
+| Server | Level | Access |
+| --- | --- | --- |
+| context7 | global | no authorization |
+| sentry | project | OAuth via `/mcps` |
+| github | project | PAT in `{env:GITHUB_TOKEN}` |
+| postgres | project | `{env:DATABASE_URL}` |
+
+Why not global: postgres, github and sentry depend on the repository and its secrets.
+The global config must work on any machine without extra variables.
+
+### context7 — library documentation
+
+Global:
+
+```sh
+opencode mcp add context7 --global --url https://mcp.context7.com/mcp
+```
+
+Personal key (for a higher limit) — keep it out of the config:
+
+```sh
+opencode mcp add context7 --global --url https://mcp.context7.com/mcp \
+  --header 'CONTEXT7_API_KEY={env:CONTEXT7_API_KEY}'
+```
+
+### sentry — project errors
+
+From the project root, without `--global`:
+
+```sh
+opencode mcp add sentry --url https://mcp.sentry.dev/mcp
+```
+
+Then `/mcps` → `sentry` → sign in in the browser. Tokens are stored outside the config.
+
+### github — issues and PRs
+
+```sh
+opencode mcp add github --url https://api.githubcopilot.com/mcp/ \
+  --header 'Authorization=Bearer {env:GITHUB_TOKEN}'
+```
+
+Keep `GITHUB_TOKEN` in `~/.zshrc`, `.envrc` or `{file:~/.secrets/github}`.
+Check the current endpoint in the GitHub MCP documentation.
+
+### postgres — database schema
+
+```sh
+opencode mcp add postgres --env DATABASE_URL='{env:DATABASE_URL}' \
+  -- npx -y <postgres-mcp-server>
+```
+
+The reference `@modelcontextprotocol/server-postgres` is archived and unmaintained —
+pick a maintained server. Never put the connection string in the config, only `{env:...}`.
+
+### Check and remove
+
+```sh
+opencode mcp list        # connected / needs authentication
+```
+
+`/mcps` — connect, disconnect, sign in. `opencode mcp logout <name>` — switch accounts.
+There is no remove command: delete the entry from `mcp.servers` in `opencode.json(c)`.
+
 ## Update
 
 ```sh

@@ -127,6 +127,75 @@ cd coffee-agents
 - `~/.local/share/opencode` — 数据库、日志、快照。
 - 项目级 `.opencode/` 和仓库的 `AGENTS.md`。
 
+## 推荐的 MCP 服务器（可选）
+
+安装脚本不配置 MCP：`opencode.json(c)` 是共用文件，而下面的服务器要么需要密钥，
+要么属于具体项目。需要手动添加。
+
+| 服务器 | 层级 | 访问方式 |
+| --- | --- | --- |
+| context7 | 全局 | 无需授权 |
+| sentry | 项目 | 通过 `/mcps` 的 OAuth |
+| github | 项目 | `{env:GITHUB_TOKEN}` 中的 PAT |
+| postgres | 项目 | `{env:DATABASE_URL}` |
+
+为什么不放全局：postgres、github 和 sentry 依赖仓库及其密钥。全局配置必须在任何机器上
+无需额外变量即可工作。
+
+### context7 — 库文档
+
+全局：
+
+```sh
+opencode mcp add context7 --global --url https://mcp.context7.com/mcp
+```
+
+个人密钥（更高额度）不要写进配置：
+
+```sh
+opencode mcp add context7 --global --url https://mcp.context7.com/mcp \
+  --header 'CONTEXT7_API_KEY={env:CONTEXT7_API_KEY}'
+```
+
+### sentry — 项目错误
+
+在项目根目录执行，不带 `--global`：
+
+```sh
+opencode mcp add sentry --url https://mcp.sentry.dev/mcp
+```
+
+然后在 `/mcps` → `sentry` 中通过浏览器登录。令牌存放在配置之外。
+
+### github — issues 与 PR
+
+```sh
+opencode mcp add github --url https://api.githubcopilot.com/mcp/ \
+  --header 'Authorization=Bearer {env:GITHUB_TOKEN}'
+```
+
+`GITHUB_TOKEN` 放在 `~/.zshrc`、`.envrc` 或 `{file:~/.secrets/github}` 中。
+实际 endpoint 以 GitHub MCP 文档为准。
+
+### postgres — 数据库结构
+
+```sh
+opencode mcp add postgres --env DATABASE_URL='{env:DATABASE_URL}' \
+  -- npx -y <postgres-mcp-server>
+```
+
+参考实现 `@modelcontextprotocol/server-postgres` 已归档且不再维护，请选择仍在维护的服务器。
+连接串不要写入配置，只用 `{env:...}`。
+
+### 检查与删除
+
+```sh
+opencode mcp list        # connected / needs authentication
+```
+
+`/mcps` — 连接、断开、登录。`opencode mcp logout <name>` — 切换账号。
+没有删除命令：从 `opencode.json(c)` 的 `mcp.servers` 中手动删除条目。
+
 ## 更新
 
 ```sh

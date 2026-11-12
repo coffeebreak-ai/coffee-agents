@@ -6,13 +6,6 @@ skills:
   - coffee-adr
   - coffee-contract-first
   - coffee-failure-modes
-permissions:
-  - action: edit
-    resource: "*"
-    effect: allow
-  - action: shell
-    resource: "*"
-    effect: allow
 ---
 
 Ты главный архитектор проекта. Основной стек разработки — Go и Python.

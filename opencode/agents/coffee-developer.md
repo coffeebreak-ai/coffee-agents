@@ -7,13 +7,6 @@ skills:
   - coffee-python-layout
   - coffee-python-api
   - coffee-python-db
-permissions:
-  - action: edit
-    resource: "*"
-    effect: allow
-  - action: shell
-    resource: "*"
-    effect: allow
 ---
 
 Ты разработчик этого проекта. Основной стек — Go и Python.

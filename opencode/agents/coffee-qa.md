@@ -4,13 +4,6 @@ description: Проверяет изменения на соответствие
 skills:
   - coffee-qa-blackbox
   - coffee-contract-first
-permissions:
-  - action: edit
-    resource: "*"
-    effect: allow
-  - action: shell
-    resource: "*"
-    effect: allow
 ---
 
 Ты независимый QA-инженер проекта. Твоя цель — найти баги и расхождения с ТЗ, а не согласиться с разработчиком.

@@ -2,7 +2,7 @@
 
 **English** | [Русский](README.ru.md) | [中文](README.zh.md)
 
-Global OpenCode settings: three agents, ten skills and a rules block with the `coffee-` prefix.
+Global OpenCode settings: three agents, thirteen skills and a rules block with the `coffee-` prefix.
 Installed by copying into the user config; project-level `.opencode/` is not included.
 
 ## Install coffee-agents
@@ -55,7 +55,10 @@ opencode/
     ├── coffee-go-layout/
     ├── coffee-golang-dev/
     ├── coffee-grill-me/
+    ├── coffee-python-api/
+    ├── coffee-python-db/
     ├── coffee-python-dev/
+    ├── coffee-python-layout/
     └── coffee-qa-blackbox/
 ```
 
@@ -72,7 +75,10 @@ opencode/
 | `coffee-failure-modes` | FMEA and failure matrix |
 | `coffee-adr` | Architecture Decision Records |
 | `coffee-grill-me` | pre-design interrogation |
-| `coffee-python-dev` | Python standards |
+| `coffee-python-dev` | Python style, typing, errors, outbound calls |
+| `coffee-python-layout` | Flask service layers, factory, Makefile |
+| `coffee-python-api` | endpoints, schemas, OpenAPI, HTTP errors |
+| `coffee-python-db` | SQLAlchemy, session, repository, Alembic |
 | `coffee-qa-blackbox` | review protocol without reading implementation |
 
 ## Requirements
@@ -91,6 +97,19 @@ npm install -g @opencode/cli
 Windows: package managers are not supported — see the
 [installation guide](https://opencode.ai/v2/docs/#cli), download the binary for your platform,
 unpack it and add the folder to `PATH`.
+
+OpenCode 2.x is required, tested on 2.2.7. Every interface reads the same config,
+so `coffee-agents` work in all of them.
+
+| Interface | Version | Install |
+| --- | --- | --- |
+| CLI, `opencode` | 2.2.7 | commands above |
+| Desktop, macOS / Windows / Linux | 2.2.7 | [install page](https://opencode.ai/v2/docs/#desktop) |
+| Web | part of the CLI, `opencode pair` | — |
+| Mobile, iPhone / Android | client for a 2.x server | iOS — TestFlight, Android — Google Play |
+
+Mobile is a remote for OpenCode on your computer: sessions run on the machine,
+the phone only steers them (`opencode pair --remote`).
 
 Then start `opencode` and connect a model with `/connect`.
 

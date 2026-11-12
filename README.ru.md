@@ -2,7 +2,7 @@
 
 [English](README.md) | **Русский** | [中文](README.zh.md)
 
-Глобальные настройки OpenCode: три агента, десять навыков и блок правил с префиксом `coffee-`.
+Глобальные настройки OpenCode: три агента, тринадцать навыков и блок правил с префиксом `coffee-`.
 Ставятся копированием в конфиг пользователя; проектные `.opencode/` не входят.
 
 ## Установка coffee-agents
@@ -55,7 +55,10 @@ opencode/
     ├── coffee-go-layout/
     ├── coffee-golang-dev/
     ├── coffee-grill-me/
+    ├── coffee-python-api/
+    ├── coffee-python-db/
     ├── coffee-python-dev/
+    ├── coffee-python-layout/
     └── coffee-qa-blackbox/
 ```
 
@@ -72,7 +75,10 @@ opencode/
 | `coffee-failure-modes` | FMEA и матрица отказов |
 | `coffee-adr` | Architecture Decision Records |
 | `coffee-grill-me` | допрос перед проектированием |
-| `coffee-python-dev` | стандарты Python |
+| `coffee-python-dev` | стиль Python, типизация, ошибки, внешние вызовы |
+| `coffee-python-layout` | слои Flask-сервиса, фабрика, Makefile |
+| `coffee-python-api` | эндпоинты, схемы, OpenAPI, ошибки HTTP |
+| `coffee-python-db` | SQLAlchemy, сессия, репозиторий, Alembic |
 | `coffee-qa-blackbox` | протокол проверки без чтения реализации |
 
 ## Требования
@@ -90,6 +96,19 @@ npm install -g @opencode/cli
 
 Windows: пакетные менеджеры не поддерживаются — скачайте бинарник по
 [инструкции по установке](https://opencode.ai/v2/docs/#cli), распакуйте и добавьте каталог в `PATH`.
+
+Нужен OpenCode 2.x, проверено на 2.2.7. Все интерфейсы читают один конфиг,
+поэтому `coffee-agents` работают в любом из них.
+
+| Интерфейс | Версия | Установка |
+| --- | --- | --- |
+| CLI, `opencode` | 2.2.7 | команды выше |
+| Desktop, macOS / Windows / Linux | 2.2.7 | [страница установки](https://opencode.ai/v2/docs/#desktop) |
+| Web | входит в CLI, `opencode pair` | — |
+| Mobile, iPhone / Android | клиент к серверу 2.x | iOS — TestFlight, Android — Google Play |
+
+Mobile — пульт к OpenCode на компьютере: сессии идут на машине, телефон их направляет
+(`opencode pair --remote`).
 
 Затем запустите `opencode` и подключите модель командой `/connect`.
 

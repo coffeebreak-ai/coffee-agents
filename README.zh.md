@@ -2,7 +2,7 @@
 
 [English](README.md) | [Русский](README.ru.md) | **中文**
 
-OpenCode 的全局配置：3 个 agent、10 个 skill，以及带 `coffee-` 前缀的规则块。
+OpenCode 的全局配置：3 个 agent、13 个 skill，以及带 `coffee-` 前缀的规则块。
 通过复制到用户配置目录安装；不包含项目级 `.opencode/`。
 
 ## 安装 coffee-agents
@@ -55,7 +55,10 @@ opencode/
     ├── coffee-go-layout/
     ├── coffee-golang-dev/
     ├── coffee-grill-me/
+    ├── coffee-python-api/
+    ├── coffee-python-db/
     ├── coffee-python-dev/
+    ├── coffee-python-layout/
     └── coffee-qa-blackbox/
 ```
 
@@ -72,7 +75,10 @@ opencode/
 | `coffee-failure-modes` | FMEA 与故障矩阵 |
 | `coffee-adr` | Architecture Decision Records |
 | `coffee-grill-me` | 设计前质询 |
-| `coffee-python-dev` | Python 规范 |
+| `coffee-python-dev` | Python 风格、类型、错误、外部调用 |
+| `coffee-python-layout` | Flask 服务分层、工厂、Makefile |
+| `coffee-python-api` | 端点、schema、OpenAPI、HTTP 错误 |
+| `coffee-python-db` | SQLAlchemy、会话、仓储、Alembic |
 | `coffee-qa-blackbox` | 不读实现的验收流程 |
 
 ## 环境要求
@@ -89,6 +95,17 @@ npm install -g @opencode/cli
 ```
 
 Windows：不支持包管理器 — 按[安装说明](https://opencode.ai/v2/docs/#cli)下载独立二进制文件，解压后把目录加入 `PATH`。
+
+需要 OpenCode 2.x，已在 2.2.7 上验证。所有形态读取同一份配置，因此 `coffee-agents` 在任一形态中都能使用。
+
+| 形态 | 版本 | 安装 |
+| --- | --- | --- |
+| CLI，`opencode` | 2.2.7 | 见上方命令 |
+| Desktop，macOS / Windows / Linux | 2.2.7 | [安装页面](https://opencode.ai/v2/docs/#desktop) |
+| Web | 随 CLI 提供，`opencode pair` | — |
+| Mobile，iPhone / Android | 2.x 服务端的客户端 | iOS — TestFlight，Android — Google Play |
+
+Mobile 是电脑上 OpenCode 的遥控器：会话在电脑上运行，手机只负责指挥（`opencode pair --remote`）。
 
 启动 `opencode`，用 `/connect` 连接模型。
 

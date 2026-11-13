@@ -3,9 +3,9 @@ name: Coffee Python Layout
 description: Новый Flask-сервис, слои api/services/repositories/models, фабрика create_app, настройки, Makefile. Не для правки стиля кода, OpenAPI и SQL.
 ---
 
-# Coffee: слои
+# Coffee: Python — слои
 
-Существующие каталоги не переноси без прямой задачи. Новый сервис начинается с `Makefile` и этого дерева.
+Дерево Python-сервиса:
 
 ```text
 app/
@@ -55,4 +55,4 @@ gunicorn 'app:create_app()' --workers 4
 
 ## Makefile
 
-Цели те же, что в Go: `run`, `test`, `lint`, `migrate-up`, `migrate-dn`, `migrate-new`, `docker-build`, `docker-run`.
+Цели по аналогии с Go: `run`, `test`, `lint`, `migrate-up`, `migrate-dn`, `migrate-new`, `docker-build`, `docker-run`.

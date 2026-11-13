@@ -17,7 +17,7 @@ class Base(DeclarativeBase):
 class Order(Base):
     __tablename__ = "orders"
     id: Mapped[int] = mapped_column(primary_key=True)
-    amount: Mapped[Decimal] = mapped_column(Numeric(18, 2))
+    amount: Mapped[Decimal] = mapped_column(Numeric(38, 18))
 ```
 
 * Только `DeclarativeBase`, `Mapped` и `mapped_column`. `declarative_base()` и `Query` устарели.

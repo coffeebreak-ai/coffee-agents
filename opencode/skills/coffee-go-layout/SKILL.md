@@ -3,9 +3,9 @@ name: Coffee Go Layout
 description: Новый Go-сервис, правка слоёв handlers, services, repositories, models, errors или Makefile. Дерево каталогов и три метода репозитория.
 ---
 
-# Coffee: слои
+# Coffee: Go — слои
 
-Существующие каталоги не переноси без прямой задачи. Новый сервис начинается с `Makefile` и этого дерева.
+Дерево Go-сервиса:
 
 ```text
 /internal/handlers

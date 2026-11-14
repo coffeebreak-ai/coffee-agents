@@ -1,5 +1,5 @@
 ---
-name: Coffee C#
+name: "Coffee C#"
 description: Пишешь или рефакторишь C# и .NET. Nullable, async и CancellationToken, decimal, EF Core, DI, анализаторы. Не для структуры решения и фреймворков.
 disable-model-invocation: true
 ---

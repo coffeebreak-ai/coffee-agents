@@ -2,7 +2,7 @@
 
 **English** | [Русский](README.ru.md) | [中文](README.zh.md)
 
-Global OpenCode settings: three agents, thirteen skills and a rules block with the `coffee-` prefix.
+Global OpenCode settings: three agents, seventeen skills and a rules block with the `coffee-` prefix.
 Installed by copying into the user config; project-level `.opencode/` is not included.
 
 ## Install coffee-agents
@@ -49,23 +49,27 @@ opencode/
 └── skills/
     ├── coffee-adr/
     ├── coffee-contract-first/
+    ├── coffee-csharp-dev/
     ├── coffee-failure-modes/
     ├── coffee-gin-swagger/
     ├── coffee-go-calls/
     ├── coffee-go-layout/
     ├── coffee-golang-dev/
     ├── coffee-grill-me/
+    ├── coffee-javascript-dev/
+    ├── coffee-lua-dev/
     ├── coffee-python-api/
     ├── coffee-python-db/
     ├── coffee-python-dev/
     ├── coffee-python-layout/
-    └── coffee-qa-blackbox/
+    ├── coffee-qa-blackbox/
+    └── coffee-typescript-dev/
 ```
 
 | Component | Purpose |
 | --- | --- |
 | `coffee-architect` | planning, interview, contracts, failure matrix, spec with Mermaid diagrams |
-| `coffee-developer` | implementation from a spec, Go and Python |
+| `coffee-developer` | implementation from a spec, Go, Python, JavaScript, TypeScript, C# and Lua (emilua) |
 | `coffee-qa` | independent black-box review |
 | `coffee-golang-dev` | Go style, errors, linter |
 | `coffee-go-layout` | service layers, repository, Makefile |
@@ -79,6 +83,10 @@ opencode/
 | `coffee-python-layout` | Flask service layers, factory, Makefile |
 | `coffee-python-api` | endpoints, schemas, OpenAPI, HTTP errors |
 | `coffee-python-db` | SQLAlchemy, session, repository, Alembic |
+| `coffee-javascript-dev` | JS style, ESM, async, errors, linter |
+| `coffee-typescript-dev` | strict types, `unknown` instead of `any`, discriminated unions, tsc |
+| `coffee-csharp-dev` | .NET, nullable, async and CancellationToken, decimal, EF Core |
+| `coffee-lua-dev` | emilua fibers, channels, cancellation, non-blocking I/O |
 | `coffee-qa-blackbox` | review protocol without reading implementation |
 
 ## Requirements

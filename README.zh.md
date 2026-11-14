@@ -2,7 +2,7 @@
 
 [English](README.md) | [Русский](README.ru.md) | **中文**
 
-OpenCode 的全局配置：3 个 agent、13 个 skill，以及带 `coffee-` 前缀的规则块。
+OpenCode 的全局配置：3 个 agent、17 个 skill，以及带 `coffee-` 前缀的规则块。
 通过复制到用户配置目录安装；不包含项目级 `.opencode/`。
 
 ## 安装 coffee-agents
@@ -49,23 +49,27 @@ opencode/
 └── skills/
     ├── coffee-adr/
     ├── coffee-contract-first/
+    ├── coffee-csharp-dev/
     ├── coffee-failure-modes/
     ├── coffee-gin-swagger/
     ├── coffee-go-calls/
     ├── coffee-go-layout/
     ├── coffee-golang-dev/
     ├── coffee-grill-me/
+    ├── coffee-javascript-dev/
+    ├── coffee-lua-dev/
     ├── coffee-python-api/
     ├── coffee-python-db/
     ├── coffee-python-dev/
     ├── coffee-python-layout/
-    └── coffee-qa-blackbox/
+    ├── coffee-qa-blackbox/
+    └── coffee-typescript-dev/
 ```
 
 | 组件 | 用途 |
 | --- | --- |
 | `coffee-architect` | 规划、访谈、契约、故障矩阵、含 Mermaid 图的方案 |
-| `coffee-developer` | 按方案实现，Go 与 Python |
+| `coffee-developer` | 按方案实现，Go、Python、JavaScript、TypeScript、C# 与 Lua (emilua) |
 | `coffee-qa` | 独立黑盒验收 |
 | `coffee-golang-dev` | Go 风格、错误处理、linter |
 | `coffee-go-layout` | 服务分层、repository、Makefile |
@@ -79,6 +83,10 @@ opencode/
 | `coffee-python-layout` | Flask 服务分层、工厂、Makefile |
 | `coffee-python-api` | 端点、schema、OpenAPI、HTTP 错误 |
 | `coffee-python-db` | SQLAlchemy、会话、仓储、Alembic |
+| `coffee-javascript-dev` | JS 风格、ESM、async、错误、linter |
+| `coffee-typescript-dev` | 严格类型、用 `unknown` 代替 `any`、可辨识联合、tsc |
+| `coffee-csharp-dev` | .NET、nullable、async 与 CancellationToken、decimal、EF Core |
+| `coffee-lua-dev` | emilua fiber、channel、取消、非阻塞 I/O |
 | `coffee-qa-blackbox` | 不读实现的验收流程 |
 
 ## 环境要求

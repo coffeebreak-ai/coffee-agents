@@ -138,7 +138,7 @@ install_rules() {
 }
 
 verify() {
-	local ids file id dir bad=0
+	local refs id dir bad=0
 
 	for dir in "$SRC"/skills/coffee-*/; do
 		if [ ! -f "$dir/SKILL.md" ]; then
@@ -147,20 +147,18 @@ verify() {
 		fi
 	done
 
-	ids=$(mktemp)
-	for file in "$SRC"/agents/coffee-*.md; do
-		awk '/^skills:/{f=1;next} f&&/^  - /{print $2;next} f{exit}' "$file" >>"$ids"
-	done
+	refs=$(mktemp)
+	grep -rhoE '`coffee-[a-z0-9-]+`' "$SRC"/agents | tr -d '`' | sort -u >"$refs"
 	while read -r id; do
 		[ -n "$id" ] || continue
 		if [ ! -d "$SRC/skills/$id" ]; then
 			log "error: agent references missing skill $id"
 			bad=1
 		fi
-	done <"$ids"
-	rm -f "$ids"
+	done <"$refs"
+	rm -f "$refs"
 
-	if grep -rnE '`(golang-dev|go-layout|gin-swagger|go-calls|contract-first|failure-modes|adr|grill-me|qa-blackbox|python-dev)`' "$SRC" >/dev/null 2>&1; then
+	if grep -rnE '`(golang-dev|go-layout|gin-swagger|go-calls|python-dev|javascript-dev|typescript-dev|csharp-dev|lua-dev|contract-first|failure-modes|adr|grill-me|qa-blackbox)`' "$SRC" >/dev/null 2>&1; then
 		log "error: found reference to unprefixed skill id"
 		bad=1
 	fi

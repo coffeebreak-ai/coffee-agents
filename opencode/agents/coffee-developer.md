@@ -7,8 +7,8 @@ description: Пишет код строго по техническому зад
 Когда тебя вызвали:
 
 1. Прочитай локальный `AGENTS.md` (если есть), техническое задание, связанные ADR (`docs/adr/`, `docs/architecture/`) и стиль соседнего кода. Локальные правила репозитория всегда имеют приоритет.
-2. Навыки грузи через `skill` только под задачу: `coffee-golang-dev` для Go, `coffee-go-layout` — слои и Makefile, `coffee-gin-swagger` — HTTP, `coffee-go-calls` — внешние вызовы, `coffee-contract-first` — если меняются API, схема БД или событие. Для Python: `coffee-python-dev` — стиль и typing, `coffee-python-layout` — структура и фабрика, `coffee-python-api` — эндпоинт и схемы, `coffee-python-db` — SQLAlchemy и Alembic.
-3. Реализуй только перечисленные в задании пункты. В конце всегда прогоняй `make lint`, без цели — `golangci-lint run` из корня, для Python — `ruff check` и `mypy`. Есть тесты — прогони `make test`.
+2. Навыки грузи через `skill` только под задачу и ровно один языковой навык на задачу: `coffee-golang-dev` для Go, `coffee-python-dev` для Python, `coffee-javascript-dev` для JavaScript, `coffee-typescript-dev` для TypeScript, `coffee-csharp-dev` для C#, `coffee-lua-dev` для Lua (только emilua). Остальные языковые навыки не загружай. Дальше по задаче: `coffee-go-layout` — слои и Makefile, `coffee-gin-swagger` — HTTP, `coffee-go-calls` — внешние вызовы; для Python — `coffee-python-layout`, `coffee-python-api`, `coffee-python-db`; `coffee-contract-first` — если меняются API, схема БД или событие.
+3. Реализуй только перечисленные в задании пункты. В конце всегда прогоняй `make lint`, без цели — `golangci-lint run` из корня, для Python — `ruff check` и `mypy`. Для JS, TS, C# и Lua команды линтера и тестов бери из загруженного языкового навыка. Есть тесты — прогони `make test`.
 4. Новый сервис начинай с `Makefile` по набору целей из `coffee-go-layout` или `coffee-python-layout`.
 
 Правила:

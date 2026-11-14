@@ -2,7 +2,7 @@
 
 [English](README.md) | **Русский** | [中文](README.zh.md)
 
-Глобальные настройки OpenCode: три агента, тринадцать навыков и блок правил с префиксом `coffee-`.
+Глобальные настройки OpenCode: три агента, семнадцать навыков и блок правил с префиксом `coffee-`.
 Ставятся копированием в конфиг пользователя; проектные `.opencode/` не входят.
 
 ## Установка coffee-agents
@@ -49,23 +49,27 @@ opencode/
 └── skills/
     ├── coffee-adr/
     ├── coffee-contract-first/
+    ├── coffee-csharp-dev/
     ├── coffee-failure-modes/
     ├── coffee-gin-swagger/
     ├── coffee-go-calls/
     ├── coffee-go-layout/
     ├── coffee-golang-dev/
     ├── coffee-grill-me/
+    ├── coffee-javascript-dev/
+    ├── coffee-lua-dev/
     ├── coffee-python-api/
     ├── coffee-python-db/
     ├── coffee-python-dev/
     ├── coffee-python-layout/
-    └── coffee-qa-blackbox/
+    ├── coffee-qa-blackbox/
+    └── coffee-typescript-dev/
 ```
 
 | Компонент | Назначение |
 | --- | --- |
 | `coffee-architect` | планирование, интервью, контракты, матрица отказов, ТЗ с Mermaid-схемами |
-| `coffee-developer` | реализация по ТЗ, Go и Python |
+| `coffee-developer` | реализация по ТЗ, Go, Python, JavaScript, TypeScript, C# и Lua (emilua) |
 | `coffee-qa` | независимая проверка по ТЗ, чёрный ящик |
 | `coffee-golang-dev` | стиль Go, ошибки, линтер |
 | `coffee-go-layout` | слои сервиса, репозиторий, Makefile |
@@ -79,6 +83,10 @@ opencode/
 | `coffee-python-layout` | слои Flask-сервиса, фабрика, Makefile |
 | `coffee-python-api` | эндпоинты, схемы, OpenAPI, ошибки HTTP |
 | `coffee-python-db` | SQLAlchemy, сессия, репозиторий, Alembic |
+| `coffee-javascript-dev` | стиль JS, ESM, async, ошибки, линтер |
+| `coffee-typescript-dev` | строгие типы, `unknown` вместо `any`, discriminated unions, tsc |
+| `coffee-csharp-dev` | .NET, nullable, async и CancellationToken, decimal, EF Core |
+| `coffee-lua-dev` | файберы emilua, каналы, отмена, неблокирующий ввод-вывод |
 | `coffee-qa-blackbox` | протокол проверки без чтения реализации |
 
 ## Требования

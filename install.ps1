@@ -146,23 +146,17 @@ function Test-Install {
     }
 
     foreach ($file in Get-ChildItem -Path (Join-Path $Src 'agents') -Filter 'coffee-*.md' -File) {
-        $lines = Get-Content -LiteralPath $file.FullName
-        $inSkills = $false
-        foreach ($line in $lines) {
-            if ($line -match '^skills:') { $inSkills = $true; continue }
-            if ($inSkills -and $line -match '^  - (\S+)') {
-                $id = $Matches[1]
-                if (-not (Test-Path -LiteralPath (Join-Path (Join-Path $Src 'skills') $id))) {
-                    Write-Info "error: agent references missing skill $id"
-                    $bad = $true
-                }
-                continue
+        $content = Get-Content -LiteralPath $file.FullName -Raw
+        foreach ($match in [regex]::Matches($content, '`(coffee-[a-z0-9-]+)`')) {
+            $id = $match.Groups[1].Value
+            if (-not (Test-Path -LiteralPath (Join-Path (Join-Path $Src 'skills') $id))) {
+                Write-Info "error: agent references missing skill $id"
+                $bad = $true
             }
-            if ($inSkills) { break }
         }
     }
 
-    $pattern = '`(golang-dev|go-layout|gin-swagger|go-calls|contract-first|failure-modes|adr|grill-me|qa-blackbox|python-dev)`'
+    $pattern = '`(golang-dev|go-layout|gin-swagger|go-calls|python-dev|javascript-dev|typescript-dev|csharp-dev|lua-dev|contract-first|failure-modes|adr|grill-me|qa-blackbox)`'
     if (Select-String -Path (Join-Path $Src '*') -Pattern $pattern -Recurse -Quiet) {
         Write-Info 'error: found reference to unprefixed skill id'
         $bad = $true

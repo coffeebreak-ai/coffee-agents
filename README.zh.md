@@ -71,7 +71,7 @@ opencode/
 | `coffee-architect` | 规划、访谈、契约、故障矩阵、含 Mermaid 图的方案 |
 | `coffee-developer` | 按方案实现，Go、Python、JavaScript、TypeScript、C# 与 Lua (emilua) |
 | `coffee-qa` | 独立黑盒验收 |
-| `coffee-golang-dev` | Go 风格、错误处理、linter |
+| `coffee-golang-dev` | Go 风格、接口、泛型、并发、linter |
 | `coffee-go-layout` | 服务分层、repository、Makefile |
 | `coffee-gin-swagger` | gin handler、swag 注解 |
 | `coffee-go-calls` | 外部调用、重试、幂等 |
@@ -79,7 +79,7 @@ opencode/
 | `coffee-failure-modes` | FMEA 与故障矩阵 |
 | `coffee-adr` | Architecture Decision Records |
 | `coffee-grill-me` | 设计前质询 |
-| `coffee-python-dev` | Python 风格、类型、错误、外部调用 |
+| `coffee-python-dev` | Python 风格、类型、标准库、pytest、错误、外部调用 |
 | `coffee-python-layout` | Flask 服务分层、工厂、Makefile |
 | `coffee-python-api` | 端点、schema、OpenAPI、HTTP 错误 |
 | `coffee-python-db` | SQLAlchemy、会话、仓储、Alembic |

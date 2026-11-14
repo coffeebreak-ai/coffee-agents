@@ -71,7 +71,7 @@ opencode/
 | `coffee-architect` | planning, interview, contracts, failure matrix, spec with Mermaid diagrams |
 | `coffee-developer` | implementation from a spec, Go, Python, JavaScript, TypeScript, C# and Lua (emilua) |
 | `coffee-qa` | independent black-box review |
-| `coffee-golang-dev` | Go style, errors, linter |
+| `coffee-golang-dev` | Go style, interfaces, generics, concurrency, linter |
 | `coffee-go-layout` | service layers, repository, Makefile |
 | `coffee-gin-swagger` | gin handlers, swag annotations |
 | `coffee-go-calls` | outbound calls, retries, idempotency |
@@ -79,7 +79,7 @@ opencode/
 | `coffee-failure-modes` | FMEA and failure matrix |
 | `coffee-adr` | Architecture Decision Records |
 | `coffee-grill-me` | pre-design interrogation |
-| `coffee-python-dev` | Python style, typing, errors, outbound calls |
+| `coffee-python-dev` | Python style, typing, stdlib, pytest, errors, outbound calls |
 | `coffee-python-layout` | Flask service layers, factory, Makefile |
 | `coffee-python-api` | endpoints, schemas, OpenAPI, HTTP errors |
 | `coffee-python-db` | SQLAlchemy, session, repository, Alembic |

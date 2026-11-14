@@ -71,7 +71,7 @@ opencode/
 | `coffee-architect` | планирование, интервью, контракты, матрица отказов, ТЗ с Mermaid-схемами |
 | `coffee-developer` | реализация по ТЗ, Go, Python, JavaScript, TypeScript, C# и Lua (emilua) |
 | `coffee-qa` | независимая проверка по ТЗ, чёрный ящик |
-| `coffee-golang-dev` | стиль Go, ошибки, линтер |
+| `coffee-golang-dev` | стиль Go, интерфейсы, дженерики, конкурентность, линтер |
 | `coffee-go-layout` | слои сервиса, репозиторий, Makefile |
 | `coffee-gin-swagger` | HTTP на gin, swag-аннотации |
 | `coffee-go-calls` | внешние вызовы, повторы, идемпотентность |
@@ -79,7 +79,7 @@ opencode/
 | `coffee-failure-modes` | FMEA и матрица отказов |
 | `coffee-adr` | Architecture Decision Records |
 | `coffee-grill-me` | допрос перед проектированием |
-| `coffee-python-dev` | стиль Python, типизация, ошибки, внешние вызовы |
+| `coffee-python-dev` | стиль Python, типизация, стандартная библиотека, pytest, ошибки, внешние вызовы |
 | `coffee-python-layout` | слои Flask-сервиса, фабрика, Makefile |
 | `coffee-python-api` | эндпоинты, схемы, OpenAPI, ошибки HTTP |
 | `coffee-python-db` | SQLAlchemy, сессия, репозиторий, Alembic |

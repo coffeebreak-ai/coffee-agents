@@ -34,6 +34,26 @@ cd coffee-agents
 | `--force` | `-Force` | 不再确认 |
 | `--uninstall` | `-Uninstall` | 删除 `coffee-*` 并恢复最近的备份 |
 
+## 安装外部技能
+
+像 `skills` CLI 一样，从 GitHub 安装任意 agent 技能到全局：
+
+```sh
+npx skills add wheresryan22/anatomy -g
+```
+
+从仓库安装某个技能：
+
+```sh
+npx skills add owner/repo --skill <name> -g
+```
+
+安装器支持同样的来源格式：
+
+```sh
+./install.sh --skill wheresryan22/anatomy
+```
+
 ## 为什么要安装
 
 全新的 OpenCode 每次会话都从零开始：它不知道你的技术栈、技术方案格式，以及合并前要检查什么。

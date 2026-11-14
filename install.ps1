@@ -1,7 +1,8 @@
 param(
     [switch]$DryRun,
     [switch]$Force,
-    [switch]$Uninstall = $false
+    [switch]$Uninstall = $false,
+    [string]$Skill = ""
 )
 
 $ErrorActionPreference = 'Stop'
@@ -169,6 +170,16 @@ function Test-Install {
     Write-Info "ok: $agents agents, $skills skills"
 }
 
+function Install-External-Skill {
+    param($Source)
+    $skill = $Source
+    if ($Source -like '*@*') { $skill = ($Source -split '@')[-1] }
+    if ($skill -eq $Source) { $skill = ($Source -split '/')[-1] }
+    Write-Info "npx -y skills add $Source --skill $skill -g"
+    if ($DryRun) { return }
+    npx -y skills add $Source --skill $skill -g
+}
+
 function Restore-Backup($latest) {
     $createdPath = Join-Path $latest 'created.txt'
     if (Test-Path -LiteralPath $createdPath) {
@@ -214,6 +225,12 @@ function Invoke-Uninstall {
 
 Write-Info "source: $Src"
 Write-Info "target: $Target"
+
+if ($Skill) {
+    Install-External-Skill -Source $Skill
+    Write-Info 'done'
+    exit 0
+}
 
 Test-Install
 

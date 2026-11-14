@@ -12,6 +12,7 @@ END='<!-- coffee:end -->'
 DRY_RUN=0
 FORCE=0
 UNINSTALL=0
+EXTERNAL_SOURCE=""
 
 usage() {
 	cat <<'EOF'
@@ -21,6 +22,7 @@ usage() {
   ./install.sh --dry-run    показать план, ничего не писать
   ./install.sh --force      без подтверждения
   ./install.sh --uninstall  удалить coffee-* и вернуть последний бэкап
+  ./install.sh --skill <owner>/<repo>[@<skill>]  установить сторонний скилл глобально
 
 Каталог задаётся OPENCODE_CONFIG_DIR или XDG_CONFIG_HOME.
 Файлы без префикса coffee- не трогаются. AGENTS.md меняется только внутри
@@ -137,6 +139,22 @@ install_rules() {
 	rm -f "$body"
 }
 
+install_external_skill() {
+	local source="$1"
+	local skill="$source"
+	if [[ "$source" == *"@"* ]]; then
+		skill="${source##*@}"
+	fi
+	if [ "$skill" = "$source" ]; then
+		skill="${source##*/}"
+	fi
+	log "npx -y skills add $source --skill $skill -g"
+	if [ "$DRY_RUN" = 1 ]; then
+		return 0
+	fi
+	npx -y skills add "$source" --skill "$skill" -g
+}
+
 verify() {
 	local refs id dir bad=0
 
@@ -205,6 +223,12 @@ while [ $# -gt 0 ]; do
 	--dry-run) DRY_RUN=1 ;;
 	--force) FORCE=1 ;;
 	--uninstall) UNINSTALL=1 ;;
+	--skill)
+			[ "${2:-}" != "" ] || { log "error: --skill requires a source (owner/repo[@skill])"; exit 2; }
+			EXTERNAL_SOURCE="$2"
+			shift 2
+			continue
+			;;
 	-h | --help)
 		usage
 		exit 0
@@ -217,6 +241,12 @@ while [ $# -gt 0 ]; do
 	esac
 	shift
 done
+
+if [ -n "$EXTERNAL_SOURCE" ]; then
+	install_external_skill "$EXTERNAL_SOURCE"
+	log "done"
+	exit 0
+fi
 
 log "source: $SRC"
 log "target: $TARGET"

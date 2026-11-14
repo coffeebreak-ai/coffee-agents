@@ -34,6 +34,26 @@ cd coffee-agents
 | `--force` | `-Force` | без подтверждения |
 | `--uninstall` | `-Uninstall` | удалить `coffee-*` и вернуть последний бэкап |
 
+## Установка стороннего скилла
+
+Устанавливай любой скилл из GitHub глобально так же, как в `skills` CLI:
+
+```sh
+npx skills add wheresryan22/anatomy -g
+```
+
+Из репозитория — выбери скилл:
+
+```sh
+npx skills add owner/repo --skill <name> -g
+```
+
+Установщик поддерживает тот же формат источника:
+
+```sh
+./install.sh --skill wheresryan22/anatomy
+```
+
 ## Зачем это ставить
 
 Чистый OpenCode каждую сессию начинает с нуля: он не знает стек, формат ТЗ и что проверять

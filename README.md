@@ -34,6 +34,26 @@ Override with `OPENCODE_CONFIG_DIR=/path` or `$env:OPENCODE_CONFIG_DIR`.
 | `--force` | `-Force` | no confirmation |
 | `--uninstall` | `-Uninstall` | remove `coffee-*`, restore the last backup |
 
+## Install an external skill
+
+Install any agent skill from GitHub globally, the same way as with the `skills` CLI:
+
+```sh
+npx skills add wheresryan22/anatomy -g
+```
+
+Pick a skill from a repository:
+
+```sh
+npx skills add owner/repo --skill <name> -g
+```
+
+The installer accepts the same source format:
+
+```sh
+./install.sh --skill wheresryan22/anatomy
+```
+
 ## Why install it
 
 A bare OpenCode starts every session from zero: it does not know your stack, how you write specs,

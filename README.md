@@ -88,7 +88,7 @@ opencode/
 
 | Component | Purpose |
 | --- | --- |
-| `coffee-architect` | planning, interview, contracts, failure matrix, spec with Mermaid diagrams |
+| `coffee-architect` | planning, interview, contracts, failure matrix, spec with Mermaid diagrams; docs only, no code edits or pipelines |
 | `coffee-developer` | implementation from a spec, Go, Python, JavaScript, TypeScript, C# and Lua (emilua) |
 | `coffee-qa` | independent black-box review |
 | `coffee-golang-dev` | Go style, interfaces, generics, concurrency, linter |

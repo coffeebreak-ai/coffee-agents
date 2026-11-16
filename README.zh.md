@@ -88,7 +88,7 @@ opencode/
 
 | 组件 | 用途 |
 | --- | --- |
-| `coffee-architect` | 规划、访谈、契约、故障矩阵、含 Mermaid 图的方案 |
+| `coffee-architect` | 规划、访谈、契约、故障矩阵、含 Mermaid 图的方案；仅文档，不改代码、不跑流水线 |
 | `coffee-developer` | 按方案实现，Go、Python、JavaScript、TypeScript、C# 与 Lua (emilua) |
 | `coffee-qa` | 独立黑盒验收 |
 | `coffee-golang-dev` | Go 风格、接口、泛型、并发、linter |

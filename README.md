@@ -95,7 +95,7 @@ opencode/
 | `coffee-go-layout` | service layers, repository, Makefile |
 | `coffee-gin-swagger` | gin handlers, swag annotations |
 | `coffee-go-calls` | outbound calls, retries, idempotency |
-| `coffee-contract-first` | SQL / OpenAPI / Proto contracts |
+| `coffee-contract-first` | SQL / OpenAPI / Proto contracts and state models |
 | `coffee-failure-modes` | FMEA and failure matrix |
 | `coffee-adr` | Architecture Decision Records |
 | `coffee-grill-me` | pre-design interrogation |

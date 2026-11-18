@@ -95,7 +95,7 @@ opencode/
 | `coffee-go-layout` | слои сервиса, репозиторий, Makefile |
 | `coffee-gin-swagger` | HTTP на gin, swag-аннотации |
 | `coffee-go-calls` | внешние вызовы, повторы, идемпотентность |
-| `coffee-contract-first` | контракты SQL/OpenAPI/Proto |
+| `coffee-contract-first` | контракты SQL/OpenAPI/Proto и модели состояний |
 | `coffee-failure-modes` | FMEA и матрица отказов |
 | `coffee-adr` | Architecture Decision Records |
 | `coffee-grill-me` | допрос перед проектированием |

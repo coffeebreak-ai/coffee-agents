@@ -95,7 +95,7 @@ opencode/
 | `coffee-go-layout` | 服务分层、repository、Makefile |
 | `coffee-gin-swagger` | gin handler、swag 注解 |
 | `coffee-go-calls` | 外部调用、重试、幂等 |
-| `coffee-contract-first` | SQL / OpenAPI / Proto 契约 |
+| `coffee-contract-first` | SQL / OpenAPI / Proto 契约与状态模型 |
 | `coffee-failure-modes` | FMEA 与故障矩阵 |
 | `coffee-adr` | Architecture Decision Records |
 | `coffee-grill-me` | 设计前质询 |
